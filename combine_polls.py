@@ -25,7 +25,13 @@ polling_station_number = 'Polling Station Number/Num\xe9ro du bureau de scrutin'
 
 merged_record_list_key = "Merged Poll Numbers"
 
-sorted_by_polling_station = sorted(data, lambda x,y: cmp(x[polling_station_number], y[polling_station_number]) )
+#sorted_by_polling_station = data #not fun to assume data is already sorted
+#sorted_by_polling_station = sorted(data, lambda x,y: cmp(x[polling_station_number], y[polling_station_number]) )
+
+#alpha numeric sort ordering trick borrowed from http://stackoverflow.com/questions/2669059/how-to-sort-alpha-numeric-set-in-python
+convert = lambda text: int(text) if text.isdigit() else text 
+alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
+sorted_by_polling_station = sorted(data, lambda x,y: cmp(alphanum_key(x[polling_station_number]), alphanum_key(y[polling_station_number])) )
 
 #function to help combine the split polls
 def keyfunc(x):
@@ -54,6 +60,7 @@ for (k,v) in itertools.groupby(sorted_by_polling_station, key=keyfunc):
 				pprint(r)
 			combined_record = r
 			combined_record[merged_record_list_key] = str(combined_record[polling_station_number]) + " "
+			#fix up record always (this seems to coincide with the shape files better)
 			combined_record[polling_station_number] = re.sub("[A-Za-z]*$", "", combined_record[polling_station_number])
 		else:
 			if debug_combine:
@@ -86,8 +93,7 @@ for (k,v) in itertools.groupby(sorted_by_polling_station, key=keyfunc):
 	new_records.append(combined_record)
 	#pass
 
-fields = new_records[0].keys()
-fields.remove(merged_record_list_key)
+fields = data.fieldnames
 fields.append(merged_record_list_key)
 
 writer = csv.DictWriter(sys.stdout, fieldnames = fields)
