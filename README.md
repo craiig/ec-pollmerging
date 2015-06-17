@@ -1,6 +1,14 @@
-Pulls down a list of polls from elections canada, and merges rows together that end in: [A-Za-z]*.
-Generates new csv files in output_csv with a new column showing you which polls it merged.
+Election's Canada publishes voting data in a somewhat weird format, sometimes occasionally splitting polls that represent the same geographic region into two or more polls. This code downloads all the polling data, and merges together those rows, and generates a similar csv file to the original. A new column is added showing you which poll numbers were merged.
+
+This should help when trying to do things like mapping data for each polling region.
+
+Tested with data sourced from this URL:
+http://www.elections.ca/scripts/resval/ovr_41ge_pollbypoll.asp?lang=e
 
 Usage:
-make getzips
-make
+make getzips (downloads the data and unzips)
+make (merges the new rows)
+
+Known issues:
+* Hacky code
+* Bad Unicode handling :( :( i.e. if you're wondering why some of the french names are broken this is why. If you really need unicode support for this, get in contact.

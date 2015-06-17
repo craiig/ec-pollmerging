@@ -15,10 +15,10 @@
 
 PROVINCES = 48 59 46 13 10 61 12 62 35 11 24 47 60 
 
+# http://www.elections.ca/scripts/PollbyPoll2011/CSV/48_csv.zip
 URLPREFIX = http://www.elections.ca/scripts/PollbyPoll2011/CSV/
 FORMAT_SUFFIX = _csv
 
-# http://www.elections.ca/scripts/PollbyPoll2011/CSV/48_csv.zip
 ZIPDIR = input_zip/
 ZIPS = $(patsubst %, $(ZIPDIR)/%$(FORMAT_SUFFIX).zip, $(PROVINCES))
 
