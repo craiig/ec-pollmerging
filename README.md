@@ -3,7 +3,7 @@ Election's Canada publishes voting data in a somewhat weird format, sometimes oc
 This should help when trying to do things like mapping data for each polling region, where the polling region maps omit all of this A,B,C suffix nonsense.
 
 Tested with data sourced from this URL:
-http://www.elections.ca/scripts/resval/ovr_41ge_pollbypoll.asp?lang=e
+http://www.elections.ca/scripts/resval/ovr_41ge.asp
 
 Usage:
 make getzips (downloads the data and unzips)
